@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .icon {
+    @apply hidden xl:flex p-2 w-10 h-10 bg-gray-500 rounded-full 
+        text-gray-100 cursor-pointer hover:bg-gray-300 hover:text-gray-500 transition-all;
+  }
+  .input-box-icons {
+    @apply flex space-x-2 cursor-pointer flex-grow items-center 
+    rounded-md p-2 sm:hover:bg-gray-200 justify-center;
+  }
+  .burger-sidebar-content-icon {
+    @apply h-[40px] w-[40px] text-blue-400 cursor-pointer;
+  }
+}

@@ -15,8 +15,9 @@ const Header: FC = () => {
     const { data: session } = useSession()
 
     return (
-        <div className="col grid grid-flow-col justify-between 
-            items-center bg-white sticky top-0 z-30 p-2 lg:px-5 shadow-md">
+        <div className={`col grid grid-flow-col justify-between 
+            items-center sticky top-0 bg-white transition-all z-30 p-2 lg:px-5 shadow-md `}>
+
             {/* Left */}
             <div className="flex items-center justify-center">
                 <Image

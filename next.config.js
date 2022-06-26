@@ -6,7 +6,8 @@ module.exports = {
           'firebasestorage.googleapis.com',
           "scontent.fiev20-1.fna.fbcdn.net",
           "scontent.flwo1-1.fna.fbcdn.net",
-          "facebook.com"
+          "facebook.com",
+          "scontent.fiev4-1.fna.fbcdn.net"
         ],
     }
   }

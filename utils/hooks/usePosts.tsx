@@ -1,4 +1,4 @@
-import { addDoc, collection, serverTimestamp, setDoc, updateDoc } from "firebase/firestore"
+import { addDoc, collection, serverTimestamp, updateDoc } from "firebase/firestore"
 import { getDownloadURL, ref, uploadString } from "firebase/storage"
 import { useSession } from "next-auth/react"
 import { useState } from "react"

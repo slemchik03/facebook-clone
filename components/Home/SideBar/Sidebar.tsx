@@ -8,7 +8,7 @@ export const Sidebar: FC = () => {
     const { data: session, status } = useSession()
     return (
         <div className="hidden sm:block sm:w-[300px]">
-            <div className="fixed top-20 pt-2 mt-5 space-y-2">
+            <div className="hidden sm:fixed top-20 pt-2 mt-5 space-y-2">
                 <SidebarRow src={session.user.image} title={session.user.name} />
                 <SidebarRow Icon={UsersIcon} title="Friends" />
                 <SidebarRow Icon={UserGroupIcon} title="Groups" />

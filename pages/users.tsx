@@ -1,13 +1,15 @@
 import { collection } from "firebase/firestore"
 import { GetServerSideProps } from "next"
 import { getSession } from "next-auth/react"
+import Layout from "../components/Layout"
 import { Spinner } from "../components/Spinner"
 import { UserItem } from "../components/Users/UserItem"
 import { firestore } from "../firebase"
 import { useInfinityData } from "../utils/hooks/useInfinityData"
+import { NextCustomPage } from "../utils/types/NextCustomPage"
 
 
-function Users() {
+const Users: NextCustomPage = () => {
     const { realtimeData: users, loading } = useInfinityData({
         collectionRef: collection(firestore, "users"),
         dataLimit: 10,
@@ -24,7 +26,7 @@ function Users() {
                     users.map((user, i) => {
                         const userItem = {
                             name: user.data().name,
-                            img: user.data().img,
+                            img: user.data().image,
                             email: user.data().email
                         }
                         return <UserItem key={i} {...userItem} />
@@ -42,9 +44,12 @@ function Users() {
     )
 }
 
-Users.auth = {
-    access: "protected"
-}
+Users.access = "protected"
+Users.getLayout = (page) => (
+    <Layout>
+        {page}
+    </Layout>
+)
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const session = await getSession(context)

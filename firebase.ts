@@ -6,7 +6,7 @@ import { getStorage } from "firebase/storage";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyCymE1mAfBJSfR0t1d6Vv4dz8M3fbcUbLY",
   authDomain: "facebook-clone-fc1b4.firebaseapp.com",
   projectId: "facebook-clone-fc1b4",

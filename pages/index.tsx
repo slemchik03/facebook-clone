@@ -5,14 +5,17 @@ import { Feed } from '../components/Feed/Feed';
 import { Login } from '../components/Login'
 import { Sidebar } from '../components/Home/SideBar/Sidebar';
 import { Widgets } from '../components/Home/Widgets/Widgets';
+import Layout from '../components/Layout';
+import { NextCustomPage } from '../utils/types/NextCustomPage';
 
 
-export default function Home() {
+const Home: NextCustomPage = () => {
   const { data: session, status } = useSession()
 
   if (!session || status === "unauthenticated") {
     return <Login />
   }
+
   return (
     <>
       <Head>
@@ -29,6 +32,14 @@ export default function Home() {
   )
 }
 
+Home.access = "public"
+Home.getLayout = (page) => (
+  <Layout>
+    {page}
+  </Layout>
+)
+
+export default Home
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context)
 
@@ -38,7 +49,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
 
-}
-Home.auth = {
-  access: "public"
 }

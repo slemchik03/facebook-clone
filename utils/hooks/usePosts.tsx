@@ -6,6 +6,7 @@ import { firestore, storage } from "../../firebase"
 
 export const usePosts = () => {
     const { data: session } = useSession()
+    const { user } = session
     const [isLoading, setLoadingStatus] = useState(false)
     const [imageToPost, setImageToPost] = useState(null)
 
@@ -14,7 +15,7 @@ export const usePosts = () => {
 
         setLoadingStatus(true)
 
-        const postListRef = collection(firestore, "users", session.user.email, "posts")
+        const postListRef = collection(firestore, "users", user.id, "posts")
         const postRef = await addDoc(postListRef, {
             text,
             timestamp: serverTimestamp()
@@ -22,7 +23,7 @@ export const usePosts = () => {
 
         if (imageToPost) { // add img to our post
             try {
-                const postImgStorageRef = ref(storage, `users/${session.user.email}/${postRef.id}`)
+                const postImgStorageRef = ref(storage, `users/${user.id}/${postRef.id}`)
                 const uploadTask = await uploadString(postImgStorageRef, imageToPost, "data_url") // upload in storage
                 const imgUrl = await getDownloadURL(postImgStorageRef) // convert img to url 
 

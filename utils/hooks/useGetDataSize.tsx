@@ -16,8 +16,9 @@ export const useGetDataSize: IHook = (query, startDataSize) => {
     const [realtimePosts] = useCollection(query)
     const [loadedDataSize, setLoadedDataSize] = useState(startDataSize)
 
+
     return [
-        realtimePosts?.docs?.length ? realtimePosts.docs.length : 0,
+        realtimePosts?.size || 0,
         loadedDataSize,
         setLoadedDataSize
     ]

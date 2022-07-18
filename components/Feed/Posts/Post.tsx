@@ -1,9 +1,11 @@
 import { ThumbUpIcon, TrashIcon } from "@heroicons/react/outline"
 import { ChatAltIcon, ShareIcon } from "@heroicons/react/solid"
 import { deleteDoc, doc, Timestamp } from "firebase/firestore"
+import { useSession } from "next-auth/react"
 import Image from "next/image"
 import { FC } from "react"
 import { firestore } from "../../../firebase"
+
 
 export interface Props {
     id: string
@@ -23,10 +25,12 @@ export const Post: FC<Props> = (
         postImg,
         name,
         timestamp,
-        email
     }
 ) => {
-    const postRef = doc(firestore, "users", email, "posts", id)
+    const { data: session } = useSession()
+    const { user } = session
+    const postRef = doc(firestore, "users", user.id, "posts", id)
+
     const deletePost = async () => {
         await deleteDoc(postRef)
     }

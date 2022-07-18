@@ -10,8 +10,9 @@ import { useInfinityData } from "../../../utils/hooks/useInfinityData";
 export const Posts: FC = () => {
     const { data: session } = useSession()
     const { user } = session
+
     const { realtimeData, loading, error } = useInfinityData({ // get currently posts
-        collectionRef: collection(firestore, "users", user.email, "posts"),
+        collectionRef: collection(firestore, "users", user.id, "posts"),
         dataLimit: 5,
         orderParams: ["timestamp", "desc"]
     })

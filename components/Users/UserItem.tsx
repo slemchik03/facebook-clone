@@ -22,7 +22,7 @@ export const UserItem: FC<Props> = ({ name, img, email }) => {
     return (
         <div className="flex px-5 py-3 bg-gray-200 rounded-md items-center justify-between">
             <div onClick={clickHandler} className="flex space-x-3 items-center cursor-pointer">
-                <Image src={img} width="40" height="40" className="rounded-full object-cover" />
+                <Image src={img} width="40px" height="40px" className="rounded-full object-cover" />
                 <p className="font-semibold">{name}</p>
             </div>
             {

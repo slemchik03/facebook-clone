@@ -1,8 +1,10 @@
 import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 import Link from "next/link";
+import Layout from "../components/Layout";
+import { NextCustomPage } from "../utils/types/NextCustomPage";
 
-const ProtectedPageError = () => {
+const ProtectedPageError: NextCustomPage = () => {
     return (
         <div className="flex text-center flex-col justify-center items-center min-h-screen">
             <p className="font-extrabold text-transparent 
@@ -16,9 +18,14 @@ const ProtectedPageError = () => {
     )
 }
 
-ProtectedPageError.auth = {
-    access: "public"
-}
+ProtectedPageError.access = "public"
+ProtectedPageError.getLayout = (page) => (
+    <Layout>
+        {page}
+    </Layout>
+)
+
+export default ProtectedPageError
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const session = await getSession(context)
@@ -30,6 +37,3 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
 
 }
-
-
-export default ProtectedPageError

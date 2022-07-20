@@ -2,7 +2,7 @@ import { collection } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { FC } from "react";
 import { firestore } from "../../../firebase";
-import { Post } from "./Post";
+import Post from "./Post";
 import { Spinner } from "../../Spinner";
 import { useInfinityData } from "../../../utils/hooks/useInfinityData";
 

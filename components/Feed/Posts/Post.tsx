@@ -5,8 +5,6 @@ import PostItem from "./PostItem/PostItem"
 import PostModal from "./PostModal/PostModal"
 
 
-
-
 export interface IPost {
     id: string
     name: string,

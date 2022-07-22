@@ -6,9 +6,9 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import { FC } from "react"
 import { firestore } from "../../../../firebase"
-import { Props } from "../Post"
+import { IPost } from "../Post"
 
-const PostItem: FC<Props> = (
+const PostItem: FC<IPost> = (
     {
         id,
         img,

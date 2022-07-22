@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { InputBox } from "./InputBox";
-import { Posts } from "./Posts/Posts";
+import PostsList from "./Posts/PostsList";
 import { Stories } from "./Stories";
 
 export const Feed: FC = () => {
@@ -12,7 +12,7 @@ export const Feed: FC = () => {
                 {/* Input box */}
                 <InputBox />
                 {/* Posts */}
-                <Posts />
+                <PostsList />
             </div>
         </div>
     )

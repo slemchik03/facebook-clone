@@ -2,11 +2,11 @@ import { ShareIcon, ThumbUpIcon } from "@heroicons/react/outline";
 import { XIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 import { FC, useEffect } from "react";
-import { Props as PostProps } from "../Post"
+import { IPost } from "../Post"
 import PostComentsList from "./PostComments/PostComentsList";
 
 
-interface Props extends PostProps {
+interface Props extends IPost {
     closeHandler: () => void
 }
 

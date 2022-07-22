@@ -3,8 +3,8 @@ import { useCallback, useEffect, useState } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { useGetDataSize } from "./useGetDataSize";
 
-interface IHookReturn {
-    realtimeData: QueryDocumentSnapshot<DocumentData>[],
+interface IHookReturn<T> {
+    realtimeData: QueryDocumentSnapshot<T>[],
     loading: boolean,
     error: FirestoreError
 }
@@ -15,12 +15,8 @@ interface IHookParams {
     orderParams: [fieldPath: string, directionStr?: OrderByDirection]
 }
 
-interface IHook {
-    (params: IHookParams): IHookReturn
-}
 
-
-export const useInfinityData: IHook = ({ collectionRef, dataLimit, orderParams }) => {
+export function useInfinityData<T = DocumentData>({ collectionRef, dataLimit, orderParams }: IHookParams): IHookReturn<T> {
     const [
         maxDataSize,
         loadedDataSize,
@@ -30,7 +26,7 @@ export const useInfinityData: IHook = ({ collectionRef, dataLimit, orderParams }
     const [data, loading, error] = useCollection(
         query(collectionRef, orderBy(...orderParams), limit(loadedDataSize)) // get data
     )
-    const [loadedData, setLoadedData] = useState<QueryDocumentSnapshot<DocumentData>[]>([]) // store loaded data
+    const [loadedData, setLoadedData] = useState<IHookReturn<T>["realtimeData"]>([]) // store loaded data
 
     const scrollHandler = useCallback(() => {
         if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) { // if user has been scrolled to end page
@@ -41,7 +37,7 @@ export const useInfinityData: IHook = ({ collectionRef, dataLimit, orderParams }
     }, [maxDataSize, loadedDataSize])
 
     useEffect(() => {
-        data && setLoadedData([...data.docs])
+        data && setLoadedData([...data.docs as IHookReturn<T>["realtimeData"]])
     }, [data])
 
     useEffect(() => {
@@ -53,7 +49,7 @@ export const useInfinityData: IHook = ({ collectionRef, dataLimit, orderParams }
     }, [maxDataSize, loadedDataSize])
 
     return {
-        realtimeData: loadedData,
+        realtimeData: (data?.docs || loadedData) as unknown as IHookReturn<T>["realtimeData"],
         loading,
         error,
     }

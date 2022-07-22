@@ -1,4 +1,4 @@
-import { collection } from "firebase/firestore";
+import { collection, Timestamp } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { FC } from "react";
 import { firestore } from "../../../firebase";
@@ -6,12 +6,17 @@ import Post from "./Post";
 import { Spinner } from "../../Spinner";
 import { useInfinityData } from "../../../utils/hooks/useInfinityData";
 
+interface Post {
+    text: string,
+    timestamp: Timestamp,
+    img?: string
+}
 
 const PostsList: FC = () => {
     const { data: session } = useSession()
     const { user } = session
 
-    const { realtimeData, loading, error } = useInfinityData({ // get currently posts
+    const { realtimeData, loading, error } = useInfinityData<Post>({ // get currently posts
         collectionRef: collection(firestore, "users", user.id, "posts"),
         dataLimit: 5,
         orderParams: ["timestamp", "desc"]
@@ -31,12 +36,12 @@ const PostsList: FC = () => {
                         <Post
                             id={post.id}
                             key={post.id}
-                            img={user.image}
                             name={user.name}
                             message={post.data().text}
-                            postImg={post.data().img}
-                            timestamp={post.data().timestamp}
                             email={user.email}
+                            postImg={post.data().img}
+                            img={user.image}
+                            timestamp={post.data().timestamp}
                         />
                     )
                 })

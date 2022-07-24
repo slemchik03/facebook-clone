@@ -4,11 +4,16 @@ import { deleteDoc, doc } from "firebase/firestore"
 import { useSession } from "next-auth/react"
 import Image from "next/image"
 import { useRouter } from "next/router"
-import { FC } from "react"
+import { FC, memo } from "react"
 import { firestore } from "../../../../firebase"
 import { IPost } from "../Post"
 
-const PostItem: FC<IPost> = (
+
+interface Props extends IPost {
+    openHandler: (id: string) => void
+}
+
+const PostItem: FC<Props> = (
     {
         id,
         img,
@@ -16,6 +21,7 @@ const PostItem: FC<IPost> = (
         postImg,
         name,
         timestamp,
+        openHandler
     }
 ) => {
     const { data: session } = useSession()
@@ -61,7 +67,7 @@ const PostItem: FC<IPost> = (
                         <p className="hidden text-sm sm:inline">Like</p>
                         <ThumbUpIcon className="h-6" />
                     </div>
-                    <div onClick={() => router.push(`/?post=${id}`, null, { shallow: true })} className="input-box-icons">
+                    <div onClick={() => openHandler(id)} className="input-box-icons">
                         <p className="hidden text-sm sm:inline">Comment</p>
                         <ChatAltIcon className="h-6" />
                     </div>

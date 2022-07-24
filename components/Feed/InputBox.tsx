@@ -36,7 +36,8 @@ export const InputBox: FC = () => {
     const submitForm = async (data: IForm) => {
         reset()
         setPostImg(null)
-        await sendPost(data.text)
+        const res = await sendPost(data.text)
+        
     }
 
     return (

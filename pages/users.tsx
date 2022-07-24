@@ -12,7 +12,8 @@ import { NextCustomPage } from "../utils/types/NextCustomPage"
 const Users: NextCustomPage = () => {
     const { realtimeData: users, loading } = useInfinityData({
         collectionRef: collection(firestore, "users"),
-        dataLimit: 10,
+        maxDataCount: 100,
+        preloadDataCount: 30,
         orderParams: ["name", "desc"]
     })
 
@@ -59,7 +60,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             session,
         }
     }
-
 }
 
 export default Users

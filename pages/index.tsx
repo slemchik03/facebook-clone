@@ -7,9 +7,14 @@ import { Sidebar } from '../components/Home/SideBar/Sidebar';
 import { Widgets } from '../components/Home/Widgets/Widgets';
 import Layout from '../components/Layout';
 import { NextCustomPage } from '../utils/types/NextCustomPage';
+import { collection, getDocs, query } from 'firebase/firestore';
+import { firestore } from '../firebase';
 
+interface Props {
+  postsCount: number
+}
 
-const Home: NextCustomPage = () => {
+const Home: NextCustomPage<Props> = ({ postsCount }) => {
   const { data: session, status } = useSession()
 
   if (!session || status === "unauthenticated") {
@@ -25,7 +30,7 @@ const Home: NextCustomPage = () => {
 
       <div className="flex justify-center sm:justify-between">
         <Sidebar />
-        <Feed />
+        <Feed postsCount={postsCount} />
         <Widgets />
       </div>
     </>
@@ -39,9 +44,19 @@ Home.getLayout = (page) => (
   </Layout>
 )
 
-export default Home
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context)
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getSession(ctx)
+
+  if (session?.user) {
+    const postsCount = await getDocs(query(collection(firestore, "users", session.user.id, "posts")))
+
+    return {
+      props: {
+        session,
+        postsCount: postsCount.size
+      }
+    }
+  }
 
   return {
     props: {
@@ -50,3 +65,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
 }
+
+export default Home

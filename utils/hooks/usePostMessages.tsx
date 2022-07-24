@@ -1,8 +1,9 @@
-import { addDoc, collection, doc, FirestoreError, QueryDocumentSnapshot, serverTimestamp, Timestamp } from "firebase/firestore"
+import { addDoc, collection, doc, FirestoreError, query, QueryDocumentSnapshot, serverTimestamp, Timestamp } from "firebase/firestore"
 import { useSession } from "next-auth/react"
 import { useMemo, useState } from "react"
 import { firestore } from "../../firebase"
 import { useInfinityData } from "./useInfinityData"
+import { useMaxDataCount } from "./useMaxDataCount"
 
 export interface Message {
     text: string,
@@ -32,11 +33,14 @@ export const usePostMessages: IHook = id => {
     const messagePath = useMemo(() => [user.id, "posts", id, "messages"], [id])
     const colletionRef = useMemo(() => collection(firestore, "users", ...messagePath), [id])
 
-    const { realtimeData, loading, error } = useInfinityData<Message>({
+    const { realtimeData, loading, error, setMaxDataSize } = useInfinityData<Message>({
         collectionRef: colletionRef,
-        dataLimit: 5,
+        preloadDataCount: 30,
+        maxDataCount: 0,
         orderParams: ["timestamp", "desc"]
     })
+    const maxDataCount = useMaxDataCount(query(colletionRef), setMaxDataSize)
+
 
     const sendMessage = async (text: string) => {
         if (text.trim()) {

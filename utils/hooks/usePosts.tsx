@@ -34,6 +34,7 @@ export const usePosts = () => {
             }
         }
         setLoadingStatus(false)
+        return true
     }
 
     return {

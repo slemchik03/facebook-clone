@@ -12,13 +12,18 @@ interface Post {
     img?: string
 }
 
-const PostsList: FC = () => {
+interface Props {
+    postsCount: number
+}
+
+const PostsList: FC<Props> = ({ postsCount }) => {
     const { data: session } = useSession()
     const { user } = session
 
     const { realtimeData, loading, error } = useInfinityData<Post>({ // get currently posts
         collectionRef: collection(firestore, "users", user.id, "posts"),
-        dataLimit: 5,
+        maxDataCount: postsCount,
+        preloadDataCount: 5,
         orderParams: ["timestamp", "desc"]
     })
 

@@ -2,8 +2,10 @@ import { CameraIcon, EmojiHappyIcon, VideoCameraIcon } from "@heroicons/react/so
 import Image from "next/image"
 import { FC, useRef } from "react"
 import { useForm } from "react-hook-form"
+import { useRecoilState } from "recoil"
 import { usePosts } from "../../utils/hooks/usePosts"
 import { Spinner } from "../Spinner"
+import { postCountState } from "./Posts/PostSection/PostsList"
 
 interface IForm {
     text: string
@@ -13,6 +15,7 @@ export const InputBox: FC = () => {
     const { sendPost, session, setPostImg, postImg, loading } = usePosts()
     const { register, handleSubmit, reset } = useForm<IForm>()
     const fileInputRef = useRef<HTMLInputElement>(null)
+    const [postsCountValue, setPostCountValue] = useRecoilState(postCountState)
 
     const addImgToPost = (e) => {
         const reader = new FileReader()
@@ -35,9 +38,11 @@ export const InputBox: FC = () => {
 
     const submitForm = async (data: IForm) => {
         reset()
-        setPostImg(null)
+        console.log("ssss");
+
         const res = await sendPost(data.text)
-        
+        setPostCountValue((n) => n + 1)
+        setPostImg(null)
     }
 
     return (

@@ -27,6 +27,7 @@ export function useInfinityData<T = DocumentData>(
 
     const [maxDataSize, setMaxDataSize] = useState(maxDataCount) // save max data count
     const [loadedDataSize, setLoadedDataSize] = useState(preloadDataCount) // save loaded data count
+    console.log(maxDataSize);
 
     const [data, loading, error] = useCollection(
         query(collectionRef, orderBy(...orderParams), limit(loadedDataSize)) // get data

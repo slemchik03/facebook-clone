@@ -11,7 +11,7 @@ import { collection, getDocs, query } from 'firebase/firestore';
 import { firestore } from '../firebase';
 
 interface Props {
-  postsCount: number
+  postsCount: number,
 }
 
 const Home: NextCustomPage<Props> = ({ postsCount }) => {
@@ -53,11 +53,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     return {
       props: {
         session,
-        postsCount: postsCount.size
+        postsCount: postsCount.size,
       }
     }
   }
-
   return {
     props: {
       session,

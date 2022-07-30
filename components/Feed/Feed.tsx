@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { InputBox } from "./InputBox";
-import PostsList from "./Posts/PostsList";
+import Posts from "./Posts/Posts";
 import { Stories } from "./Stories";
 
 interface Props {
@@ -16,7 +16,7 @@ export const Feed: FC<Props> = ({ postsCount }) => {
                 {/* Input box */}
                 <InputBox />
                 {/* Posts */}
-                <PostsList postsCount={postsCount} />
+                <Posts postsCount={postsCount} />
             </div>
         </div>
     )

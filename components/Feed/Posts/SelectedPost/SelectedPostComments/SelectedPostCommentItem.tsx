@@ -6,7 +6,7 @@ interface Props extends Message {
 
 }
 
-const PostCommentItem: FC<Props> = ({ author, authorImg, text, timestamp }) => {
+const SelectedPostCommentItem: FC<Props> = ({ author, authorImg, text, timestamp }) => {
 
     return (
         <div className="grid grid-cols-[50px_minmax(0px,_1fr)_minmax(0px,_1fr)] gap-4">
@@ -26,4 +26,4 @@ const PostCommentItem: FC<Props> = ({ author, authorImg, text, timestamp }) => {
     )
 }
 
-export default PostCommentItem
+export default SelectedPostCommentItem

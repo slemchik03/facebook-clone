@@ -4,33 +4,39 @@ import { deleteDoc, doc } from "firebase/firestore"
 import { useSession } from "next-auth/react"
 import Image from "next/image"
 import { useRouter } from "next/router"
-import { FC, memo } from "react"
+import { FC } from "react"
+import { SetterOrUpdater } from "recoil"
 import { firestore } from "../../../../firebase"
-import { IPost } from "../Post"
-
+import { IPost } from "./PostsList"
 
 interface Props extends IPost {
-    openHandler: (id: string) => void
+    id: string,
+    name: string,
+    authorImg: string,
+    setPostCountValue: SetterOrUpdater<number>
 }
 
-const PostItem: FC<Props> = (
-    {
-        id,
-        img,
-        message,
-        postImg,
-        name,
-        timestamp,
-        openHandler
-    }
-) => {
+const Post: FC<Props> = ({
+    id,
+    name,
+    text,
+    img,
+    authorImg,
+    timestamp,
+    setPostCountValue
+}) => {
     const { data: session } = useSession()
     const router = useRouter()
     const { user } = session
     const postRef = doc(firestore, "users", user.id, "posts", id)
 
     const deletePost = async () => {
+        setPostCountValue(n => n - 1)
         await deleteDoc(postRef)
+    }
+
+    const openHandler = () => {
+        router.push(`${router.route}?post=${id}`, null, { scroll: false, shallow: true })
     }
 
     return (
@@ -38,7 +44,7 @@ const PostItem: FC<Props> = (
             <div className="p-5 bg-white mt-5 rounded-xl shadow-md">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
-                        <img className="rounded-full" src={img} width={40} height={40} alt="" />
+                        <img className="rounded-full" src={authorImg} width={40} height={40} alt="" />
                         <div>
                             <p className="font-medium">{name}</p>
                             <p className="text-xs text-gray-400">
@@ -52,11 +58,11 @@ const PostItem: FC<Props> = (
                         group-hover:opacity-100 transition-all" />
                     </div>
                 </div>
-                <p className="pt-5 font-medium">{message}</p>
+                <p className="pt-5 font-medium">{text}</p>
                 {
-                    postImg && (
+                    img && (
                         <div className="relative h-56 md:h-96 mt-5">
-                            <Image src={postImg} objectFit={"cover"} layout="fill" blurDataURL={postImg} />
+                            <Image src={img} objectFit={"cover"} layout="fill" blurDataURL={img} />
                         </div>
                     )
                 }
@@ -67,7 +73,7 @@ const PostItem: FC<Props> = (
                         <p className="hidden text-sm sm:inline">Like</p>
                         <ThumbUpIcon className="h-6" />
                     </div>
-                    <div onClick={() => openHandler(id)} className="input-box-icons">
+                    <div onClick={openHandler} className="input-box-icons">
                         <p className="hidden text-sm sm:inline">Comment</p>
                         <ChatAltIcon className="h-6" />
                     </div>
@@ -81,4 +87,4 @@ const PostItem: FC<Props> = (
     )
 }
 
-export default PostItem
+export default Post

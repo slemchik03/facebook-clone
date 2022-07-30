@@ -3,7 +3,7 @@ import { FC } from "react"
 import { useForm } from "react-hook-form"
 import { usePostMessages } from "../../../../../utils/hooks/usePostMessages"
 import { Spinner } from "../../../../Spinner"
-import PostCommentItem from "./PostCommentItem"
+import SelectedPostCommentItem from "./SelectedPostCommentItem"
 
 interface Props {
     postId: string
@@ -11,7 +11,7 @@ interface Props {
 interface IForm {
     text: string
 }
-const PostCommentsList: FC<Props> = ({ postId }) => {
+const SelectedPostCommentsList: FC<Props> = ({ postId }) => {
     const { register, handleSubmit, reset } = useForm<IForm>()
     const { data, loading, sendMessage } = usePostMessages(postId)
     const { data: session } = useSession()
@@ -44,7 +44,7 @@ const PostCommentsList: FC<Props> = ({ postId }) => {
                                 <Spinner />
                             </div>
                         ) : data.map((comment) => {
-                            return <PostCommentItem key={comment.id} {...comment.data()} />
+                            return <SelectedPostCommentItem key={comment.id} {...comment.data()} />
                         })
                     }
                 </div>
@@ -54,4 +54,4 @@ const PostCommentsList: FC<Props> = ({ postId }) => {
     )
 }
 
-export default PostCommentsList
+export default SelectedPostCommentsList

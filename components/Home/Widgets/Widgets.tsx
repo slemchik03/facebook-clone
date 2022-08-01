@@ -17,7 +17,7 @@ export const data = [
     },
 ]
 
-export const Widgets: FC = () => {
+const Widgets: FC = () => {
     return (
         <div className="xl:min-w-[250px]">
             <div className="hidden fixed mt-5 mr-2 top-20 right-0 xl:flex flex-col">
@@ -41,3 +41,5 @@ export const Widgets: FC = () => {
         </div>
     )
 }
+
+export default Widgets

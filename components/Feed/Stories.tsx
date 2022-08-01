@@ -30,7 +30,7 @@ const data: DataType[] = [
     }
 ]
 
-export const Stories: FC = () => {
+const Stories: FC = () => {
     return (
         <div className="flex justify-center space-x-3">
             {data.map(story => {
@@ -39,3 +39,5 @@ export const Stories: FC = () => {
         </div>
     )
 }
+
+export default Stories

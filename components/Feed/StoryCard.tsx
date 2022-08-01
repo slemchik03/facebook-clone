@@ -9,10 +9,10 @@ export const StoryCard: FC<DataType> = ({ profile, src, name }) => {
         hover:animate-pulse ease-in hover:scale-105">
             <Image width={40} height={40} src={profile} className="absolute opacity-0 
             lg:opacity-100 rounded-full z-10 object-cover
-            " />
+            " alt="Author" />
 
-            <Image src={src} layout={"fill"} className="rounded-full 
-            lg:rounded-3xl filter brightness-75 object-cover" />
+            <Image priority src={src} layout={"fill"} className="rounded-full 
+            lg:rounded-3xl filter brightness-75 object-cover" alt="Story image" />
             <p className="hidden lg:flex absolute bottom-3 font-semibold text-white">
                 {name.length > 12 ? name.slice(0, 12) + "..." : name}
             </p>

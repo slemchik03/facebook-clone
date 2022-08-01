@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react"
 import { FC } from "react"
 import { SidebarRow } from "./SidebarRow"
 
-export const Sidebar: FC = () => {
+const Sidebar: FC = () => {
     const { data: session } = useSession()
     return (
         <div className="hidden sm:block sm:w-[300px]">
@@ -23,3 +23,5 @@ export const Sidebar: FC = () => {
         </div>
     )
 }
+
+export default Sidebar;

@@ -1,20 +1,21 @@
 import { GetServerSideProps } from 'next';
 import { getSession, useSession } from 'next-auth/react'
 import Head from 'next/head'
-import { Feed } from '../components/Feed/Feed';
-import { Login } from '../components/Login'
-import { Sidebar } from '../components/Home/SideBar/Sidebar';
-import { Widgets } from '../components/Home/Widgets/Widgets';
+import Feed from '../components/Feed/Feed';
+import { Login } from '../components/Login';
+import Widgets from '../components/Home/Widgets/Widgets';
 import Layout from '../components/Layout';
 import { NextCustomPage } from '../utils/types/NextCustomPage';
 import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore';
 import { firestore } from '../firebase';
 import React from 'react';
 import { HomeContext, PreloadedPosts } from '../utils/context/HomeContext';
+import Sidebar from '../components/Home/SideBar/Sidebar';
 
 interface Props {
   preloadedPostsData: PreloadedPosts[]
 }
+
 
 const Home: NextCustomPage<Props> = ({ preloadedPostsData }) => {
   const { data: session, status } = useSession()

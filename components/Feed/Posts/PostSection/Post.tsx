@@ -58,7 +58,7 @@ const Post: FC<Props> = ({
                 {
                     img && (
                         <div className="relative h-56 md:h-96 mt-5">
-                            <Image src={img} objectFit={"cover"} layout="fill" blurDataURL={img} />
+                            <Image src={img} objectFit={"cover"} priority layout="fill" blurDataURL={img} />
                         </div>
                     )
                 }

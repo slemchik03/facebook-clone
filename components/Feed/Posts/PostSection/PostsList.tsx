@@ -1,46 +1,33 @@
 import { collection, Timestamp } from "firebase/firestore";
 import { useSession } from "next-auth/react";
-import { FC, useEffect } from "react";
+import { FC, useContext } from "react";
 import { firestore } from "../../../../firebase";
 import Post from "./Post";
 import { Spinner } from "../../../Spinner";
 import { useInfinityData } from "../../../../utils/hooks/useInfinityData";
-import { atom, useRecoilState } from "recoil";
+import { HomeContext } from "../../../../utils/context/HomeContext";
 
 export interface IPost {
     text: string,
-    timestamp: Timestamp,
+    timestamp: Timestamp | null,
     img?: string
 }
 
 interface Props {
-    postsCount: number,
+
 }
 
-export const postCountState = atom<number>({
-    key: "PostCountState",
-    default: 0
-})
-
-const PostsList: FC<Props> = ({ postsCount }) => {
-    const [postsCountValue, setPostCountValue] = useRecoilState(postCountState)
+const PostsList: FC<Props> = ({ }) => {
     const { data: session } = useSession()
+    const { preloadedPosts } = useContext(HomeContext)
     const { user } = session
 
-    const { realtimeData, loading, error, setMaxDataSize } = useInfinityData<IPost>({ // get currently posts
+    const { realtimeData, loading, error } = useInfinityData<IPost>({ // get currently posts
         collectionRef: collection(firestore, "users", user.id, "posts"),
-        maxDataCount: postsCountValue,
         preloadDataCount: 5,
         orderParams: ["timestamp", "desc"]
     })
 
-    useEffect(() => {
-        setPostCountValue(postsCount)
-    }, [])
-
-    useEffect(() => {
-        setMaxDataSize(postsCountValue)
-    }, [postsCountValue])
 
     if (error) {
         return (
@@ -51,7 +38,7 @@ const PostsList: FC<Props> = ({ postsCount }) => {
     return (
         <div className="grid grid-flow-row">
             {
-                realtimeData.map(post => {
+                realtimeData.length ? realtimeData.map(post => {
                     return (
                         <Post
                             id={post.id}
@@ -61,10 +48,22 @@ const PostsList: FC<Props> = ({ postsCount }) => {
                             img={post.data().img}
                             authorImg={user.image}
                             timestamp={post.data().timestamp}
-                            setPostCountValue={setPostCountValue}
                         />
                     )
-                })
+                }) :
+                    preloadedPosts.map((post) => {
+                        return (
+                            <Post
+                                id={post.id}
+                                key={post.id}
+                                name={user.name}
+                                text={post.text}
+                                img={post.img}
+                                authorImg={user.image}
+                                timestamp={post.timestamp}
+                            />
+                        )
+                    })
             }
 
             {

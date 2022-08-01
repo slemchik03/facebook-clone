@@ -12,7 +12,6 @@ import { NextCustomPage } from "../utils/types/NextCustomPage"
 const Users: NextCustomPage = () => {
     const { realtimeData: users, loading } = useInfinityData({
         collectionRef: collection(firestore, "users"),
-        maxDataCount: 100,
         preloadDataCount: 30,
         orderParams: ["name", "desc"]
     })

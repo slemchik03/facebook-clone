@@ -7,14 +7,16 @@ import { Sidebar } from '../components/Home/SideBar/Sidebar';
 import { Widgets } from '../components/Home/Widgets/Widgets';
 import Layout from '../components/Layout';
 import { NextCustomPage } from '../utils/types/NextCustomPage';
-import { collection, getDocs, query } from 'firebase/firestore';
+import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore';
 import { firestore } from '../firebase';
+import React from 'react';
+import { HomeContext, PreloadedPosts } from '../utils/context/HomeContext';
 
 interface Props {
-  postsCount: number,
+  preloadedPostsData: PreloadedPosts[]
 }
 
-const Home: NextCustomPage<Props> = ({ postsCount }) => {
+const Home: NextCustomPage<Props> = ({ preloadedPostsData }) => {
   const { data: session, status } = useSession()
 
   if (!session || status === "unauthenticated") {
@@ -22,7 +24,7 @@ const Home: NextCustomPage<Props> = ({ postsCount }) => {
   }
 
   return (
-    <>
+    <HomeContext.Provider value={{ preloadedPosts: preloadedPostsData }}>
       <Head>
         <title>Home</title>
         <link rel="icon" href="/favicon.ico" />
@@ -30,10 +32,10 @@ const Home: NextCustomPage<Props> = ({ postsCount }) => {
 
       <div className="flex justify-center sm:justify-between">
         <Sidebar />
-        <Feed postsCount={postsCount} />
+        <Feed />
         <Widgets />
       </div>
-    </>
+    </HomeContext.Provider>
   )
 }
 
@@ -48,12 +50,18 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getSession(ctx)
 
   if (session?.user) {
-    const postsCount = await getDocs(query(collection(firestore, "users", session.user.id, "posts")))
+    const preloadedPosts = await getDocs(query(collection(firestore, "users", session.user.id, "posts"), limit(5), orderBy("timestamp", "desc")))
+
+    const preloadedPostsData = preloadedPosts.docs.map((post) => ({
+      id: post.id,
+      ...post.data(),
+      timestamp: null
+    }))
 
     return {
       props: {
         session,
-        postsCount: postsCount.size,
+        preloadedPostsData
       }
     }
   }

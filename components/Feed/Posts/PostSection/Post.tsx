@@ -5,7 +5,6 @@ import { useSession } from "next-auth/react"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { FC } from "react"
-import { SetterOrUpdater } from "recoil"
 import { firestore } from "../../../../firebase"
 import { IPost } from "./PostsList"
 
@@ -13,7 +12,6 @@ interface Props extends IPost {
     id: string,
     name: string,
     authorImg: string,
-    setPostCountValue: SetterOrUpdater<number>
 }
 
 const Post: FC<Props> = ({
@@ -23,7 +21,6 @@ const Post: FC<Props> = ({
     img,
     authorImg,
     timestamp,
-    setPostCountValue
 }) => {
     const { data: session } = useSession()
     const router = useRouter()
@@ -31,7 +28,6 @@ const Post: FC<Props> = ({
     const postRef = doc(firestore, "users", user.id, "posts", id)
 
     const deletePost = async () => {
-        setPostCountValue(n => n - 1)
         await deleteDoc(postRef)
     }
 
@@ -48,7 +44,7 @@ const Post: FC<Props> = ({
                         <div>
                             <p className="font-medium">{name}</p>
                             <p className="text-xs text-gray-400">
-                                {new Date(timestamp?.toDate()).toLocaleString()}
+                                {timestamp ? new Date(timestamp?.toDate()).toLocaleString() : "Loading..."}
                             </p>
                         </div>
                     </div>

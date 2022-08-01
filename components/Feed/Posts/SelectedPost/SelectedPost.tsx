@@ -1,22 +1,12 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { FC, useEffect } from "react";
-import { atom, useRecoilState } from "recoil";
+import { FC, useEffect, useState } from "react";
 import SelectedPostContent from "./SelectedPostContent";
 
 
-const selectedPostID = atom<string>({
-    key: "SelectedPostID",
-    default: ""
-})
-export const selectedPostOpen = atom<boolean>({
-    key: "SelectedPostOpen",
-    default: false
-})
-
 const SelectedPost: FC = ({ }) => {
-    const [postId, setPostId] = useRecoilState(selectedPostID)
-    const [isOpen, setOpen] = useRecoilState(selectedPostOpen)
+    const [postId, setPostId] = useState("")
+    const [isOpen, setOpen] = useState(false)
 
     const router = useRouter()
     const { data: session } = useSession()

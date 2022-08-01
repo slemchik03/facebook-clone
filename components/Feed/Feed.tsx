@@ -4,10 +4,10 @@ import Posts from "./Posts/Posts";
 import { Stories } from "./Stories";
 
 interface Props {
-    postsCount: number
+    
 }
 
-export const Feed: FC<Props> = ({ postsCount }) => {
+export const Feed: FC<Props> = () => {
     return (
         <div className="flex justify-center pt-7 md:mr-[110px]">
             <div>
@@ -16,7 +16,7 @@ export const Feed: FC<Props> = ({ postsCount }) => {
                 {/* Input box */}
                 <InputBox />
                 {/* Posts */}
-                <Posts postsCount={postsCount} />
+                <Posts />
             </div>
         </div>
     )

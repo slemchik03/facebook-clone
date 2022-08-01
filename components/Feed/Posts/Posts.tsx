@@ -3,13 +3,13 @@ import PostsList from "./PostSection/PostsList";
 import SelectedPost from "./SelectedPost/SelectedPost";
 
 interface Props {
-    postsCount: number
+
 }
 
-const Posts: FC<Props> = ({ postsCount }) => {
+const Posts: FC<Props> = ({ }) => {
     return (
         <div>
-            <PostsList postsCount={postsCount} />
+            <PostsList />
             <SelectedPost />
         </div>
     )

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import { collection } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { FC } from "react";
@@ -51,3 +52,49 @@ export const Posts: FC = () => {
         </div>
     )
 } 
+=======
+import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
+import { headers } from "next/headers";
+import { firestore } from "../../../firebase";
+import { PreloadedPosts } from "../../../utils/context/HomeContext";
+import getSession from "../../../utils/getSession";
+import PostsList from "./PostSection/PostsList";
+import SelectedPostPopup from "./SelectedPost/SelectedPostPopup";
+
+const getPosts = async () => {
+  const session = await getSession(headers().get("cookie") ?? "");
+
+  if (session?.user) {
+    const preloadedPosts = await getDocs(
+      query(
+        collection(firestore, "users", session.user?.id, "posts"),
+        limit(5),
+        orderBy("timestamp", "desc")
+      )
+    );
+
+    const preloadedPostsData = preloadedPosts.docs.map((post) => ({
+      id: post.id,
+      ...post.data(),
+      timestamp: null,
+    }));
+
+    return preloadedPostsData as unknown as (PreloadedPosts & {id: string})[]
+  }
+};
+
+export const preloadPosts = () => {
+  void getPosts();
+};
+
+
+export default async function Posts() {
+  const posts = await getPosts();
+  return (
+    <>
+      <PostsList preloadedPosts={posts} />
+      <SelectedPostPopup />
+    </>
+  );
+}
+>>>>>>> Stashed changes

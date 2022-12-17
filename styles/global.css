@@ -14,4 +14,10 @@
   .burger-sidebar-content-icon {
     @apply h-[40px] w-[40px] text-blue-400 cursor-pointer;
   }
+  .popup-container {
+    @apply fixed overflow-y-auto flex flex-1 justify-center items-center min-h-full min-w-full px-5  top-0 left-0 z-[9999] bg-[rgba(0,0,0,0.4)]
+  }
+  .popup-button {
+    @apply text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-7 py-2 text-center
+  }
 }

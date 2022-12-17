@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream:components/Feed/Posts/PostItem/PostItem.tsx
 import { ThumbUpIcon, TrashIcon } from "@heroicons/react/outline"
 import { ChatAltIcon, ShareIcon } from "@heroicons/react/solid"
 import { deleteDoc, doc } from "firebase/firestore"
@@ -22,11 +23,35 @@ const PostItem: FC<Props> = (
     const router = useRouter()
     const { user } = session
     const postRef = doc(firestore, "users", user.id, "posts", id)
+=======
+"use client"
 
-    const deletePost = async () => {
-        await deleteDoc(postRef)
-    }
+import { deleteDoc, doc } from "firebase/firestore";
+import { useSession } from "next-auth/react";
+import { FC, useCallback, useState } from "react";
+import { firestore } from "../../../../firebase";
+import PostDeletePopup from "./PostDeletePopup";
+import PostItem from "./PostItem";
+import { IPost } from "./PostsList";
 
+interface Props extends IPost {
+  id: string;
+  name: string;
+  authorImg: string;
+}
+
+const Post: FC<Props> = (props) => {
+  const [isDeletePopupOpen, setDeletePopupStatus] = useState(false);
+  const { data: session } = useSession();
+  const user = session?.user;
+  const postRef = doc(firestore, "users", user?.id+"", "posts", props?.id + "");
+>>>>>>> Stashed changes:components/Feed/Posts/PostSection/Post.tsx
+
+  const deletePost = useCallback(async () => {
+    await deleteDoc(postRef);
+  }, []);
+
+<<<<<<< Updated upstream:components/Feed/Posts/PostItem/PostItem.tsx
     return (
         <div className="group grid grid-flow-row xl:w-[550px] ">
             <div className="p-5 bg-white mt-5 rounded-xl shadow-md">
@@ -76,3 +101,22 @@ const PostItem: FC<Props> = (
 }
 
 export default PostItem
+=======
+  const deleteHandler = useCallback(() => {
+    setDeletePopupStatus(true);
+  }, []);
+
+  return (
+    <>
+      <PostItem {...props} deleteHandler={deleteHandler} />
+      <PostDeletePopup
+        isOpen={isDeletePopupOpen}
+        closeHandler={() => setDeletePopupStatus(false)}
+        acceptHandler={deletePost}
+      />
+    </>
+  );
+};
+
+export default Post;
+>>>>>>> Stashed changes:components/Feed/Posts/PostSection/Post.tsx

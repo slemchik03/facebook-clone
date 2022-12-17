@@ -13,7 +13,7 @@ export default NextAuth({
     adapter: FirestoreAdapter(firebaseConfig),
     callbacks: {
         async session({ session, user }) {
-            session.user.id = user.id
+            session.user.id = user?.id
             
             return session 
         }

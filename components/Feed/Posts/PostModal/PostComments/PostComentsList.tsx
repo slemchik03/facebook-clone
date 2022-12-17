@@ -2,8 +2,13 @@ import { useSession } from "next-auth/react"
 import { FC } from "react"
 import { useForm } from "react-hook-form"
 import { usePostMessages } from "../../../../../utils/hooks/usePostMessages"
+<<<<<<< Updated upstream:components/Feed/Posts/PostModal/PostComments/PostComentsList.tsx
 import { Spinner } from "../../../../Spinner"
 import PostCommentItem from "./PostCommentItem"
+=======
+import { Spinner } from "../../../../General/Spinner"
+import SelectedPostCommentItem from "./SelectedPostCommentItem"
+>>>>>>> Stashed changes:components/Feed/Posts/SelectedPost/SelectedPostComments/SelectedPostComentsList.tsx
 
 interface Props {
     postId: string

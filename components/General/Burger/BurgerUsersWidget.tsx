@@ -2,7 +2,7 @@ import { ChevronDownIcon } from "@heroicons/react/outline";
 import { XIcon } from "@heroicons/react/solid";
 import Image from "next/image";
 import { Dispatch, FC, SetStateAction } from "react";
-import { data } from "../Home/Widgets/Widgets";
+import { data } from "../../Home/Widgets/Widgets";
 
 interface Props {
     handler: Dispatch<SetStateAction<boolean>>
@@ -20,7 +20,7 @@ export const BurgerUsersWidget: FC<Props> = ({ handler }) => {
                         return (
                             <div key={user.src}>
                                 <Image src={user.src} className="rounded-full 
-                            cursor-pointer" width={50} height={50} objectFit={"cover"} />
+                            cursor-pointer object-cover" width={50} height={50} alt="user image" />
                             </div>
                         )
                     })

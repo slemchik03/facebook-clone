@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { useRouter } from "next/router"
+import { usePathname } from "next/navigation"
 import React, { Dispatch, FC, SetStateAction } from "react"
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const HeaderIcon: FC<Props> = ({ Icon, href, setMobileMenuIsOpen }) => {
-    const currentPath = useRouter().pathname
+    const currentPath = usePathname()
 
     return (
         <Link href={href}>

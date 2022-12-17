@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from "react"
 import { HeaderIcon } from "./HeaderIcon"
 import {
@@ -14,9 +16,9 @@ export const HeaderIcons: FC = () => {
         <div className="flex space-x-4 md:space-x-0 
         items-center justify-center">
             <HeaderIcon href="/" Icon={HomeIcon} />
-            <HeaderIcon href="/b" Icon={FlagIcon} />
-            <HeaderIcon href="/c" Icon={PlayIcon} />
-            <HeaderIcon href="/d" Icon={ShoppingCartIcon} />
+            <HeaderIcon href="/in-progress" Icon={FlagIcon} />
+            <HeaderIcon href="/in-progress" Icon={PlayIcon} />
+            <HeaderIcon href="/in-progress" Icon={ShoppingCartIcon} />
             <HeaderIcon href="/users" Icon={UserGroupIcon} />
         </div>
     )

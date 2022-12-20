@@ -9,15 +9,14 @@ export default async function Page() {
       >
         Sorry but you don`t have accses to this page.
       </p>
-      <Link href={"/"}>
-        <a
-          className="text-d-none p-2 rounded-lg 
+      <Link
+        href={"/"}
+        className="text-d-none p-2 rounded-lg 
                 bg-cyan-500 font-mono text-white mt-4 
                 hover:bg-cyan-400 transition-all"
-        >
-          Return to login page.
-        </a>
+      >
+        Return to login page.
       </Link>
     </div>
   );
-};
+}

@@ -1,15 +1,4 @@
 
-<<<<<<< Updated upstream
-export const Sidebar: FC = () => {
-    const { data: session } = useSession()
-    return (
-        <div className="hidden sm:block sm:w-[300px]">
-            <div className="fixed top-20 pt-2 mt-5 space-y-2">
-                <SidebarRow src={session.user.image} title={session.user.name} />
-                <SidebarRow Icon={UsersIcon} title="Friends" />
-                <SidebarRow Icon={UserGroupIcon} title="Groups" />
-                <SidebarRow Icon={ShoppingBagIcon} title="Marketplace" />
-=======
 import {
   CalendarIcon,
   ClockIcon,
@@ -24,17 +13,10 @@ import {
 import { SidebarRow } from "./SidebarRow";
 import getSession from "../../../utils/getSession";
 import { headers } from "next/headers";
->>>>>>> Stashed changes
 
 export default async function Sidebar() {
   const session = await getSession(headers().get("cookie") ?? "");
 
-<<<<<<< Updated upstream
-            </div>
-        </div>
-    )
-}
-=======
   return (
     <div className="hidden sm:block sm:w-[300px]">
       <div className="fixed top-20 left-5 pt-2 mt-5 space-y-2">
@@ -51,4 +33,3 @@ export default async function Sidebar() {
     </div>
   );
 }
->>>>>>> Stashed changes

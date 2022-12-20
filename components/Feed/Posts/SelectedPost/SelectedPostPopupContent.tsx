@@ -6,8 +6,8 @@ import { FC } from "react";
 import { useDocumentOnce } from "react-firebase-hooks/firestore";
 import { firestore } from "../../../../firebase";
 import { Spinner } from "../../../General/Spinner";
-import { IPost } from "../PostSection/PostsList";
-import SelectedPostCommentsList from "./SelectedPostComments/SelectedPostComentsList";
+import { IPost } from "../Post";
+import SelectedPostComments from "./SelectedPostComments/SelectedPostComments";
 
 interface Props {
     id: string,
@@ -18,7 +18,7 @@ interface Props {
 }
 
 const SelectedPostPopupContent: FC<Props> = ({ id, userId, authorImg, name, closeHandler }) => {
-    const [data, loading, error] = useDocumentOnce(doc(firestore, "users", userId, "posts", id))
+    const [data, loading, error] = useDocumentOnce(doc(firestore, "users", userId+"", "posts", id+""))
     const post = data?.data() as IPost
 
     if (loading) {
@@ -79,7 +79,7 @@ const SelectedPostPopupContent: FC<Props> = ({ id, userId, authorImg, name, clos
                     </div>
                 </div>
                 {/* Comments */}
-                <SelectedPostCommentsList postId={id} />
+                <SelectedPostComments postId={id} />
             </div>
         </div>
     )

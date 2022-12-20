@@ -1,55 +1,57 @@
+"use client";
 import { collection } from "firebase/firestore";
 import { useSession } from "next-auth/react";
-import { FC } from "react";
 import { firestore } from "../../../firebase";
-import Post from "./Post";
-import { Spinner } from "../../Spinner";
 import { useInfinityData } from "../../../utils/hooks/useInfinityData";
+import { IPost } from "./Post";
+import PostItem from "./PostItem";
 
-
-const PostsList: FC = () => {
-    const { data: session } = useSession()
-    const { user } = session
-
-    const { realtimeData, loading, error } = useInfinityData({ // get currently posts
-        collectionRef: collection(firestore, "users", user.id, "posts"),
-        dataLimit: 5,
-        orderParams: ["timestamp", "desc"]
-    })
-
-    if (error) {
-        return (
-            <p className="font-bold">Erorr loading has been failed! Refresh page or try later.</p>
-        )
-    }
-
-    return (
-        <div className="grid grid-flow-row">
-            {
-                realtimeData.map(post => {
-                    return (
-                        <Post
-                            id={post.id}
-                            key={post.id}
-                            img={user.image}
-                            name={user.name}
-                            message={post.data().text}
-                            postImg={post.data().img}
-                            timestamp={post.data().timestamp}
-                            email={user.email}
-                        />
-                    )
-                })
-            }
-            {
-                loading && (
-                    <div className="flex justify-center mt-10">
-                        <Spinner />
-                    </div>
-                )
-            }
-        </div>
-    )
+interface Props {
+  preloadedPosts: IPost[];
 }
 
-export default PostsList
+
+export default function PostsList({ preloadedPosts }: Props) {
+  const { data: session } = useSession();
+  const { realtimeData } = useInfinityData<IPost>({ // get currently posts
+    collectionRef: collection(firestore, "users", session?.user.id+"", "posts"),
+    preloadDataCount: 5,
+    orderParams: ["timestamp", "desc"]
+})
+  console.log(realtimeData);
+  
+
+  return (
+      <div className="grid grid-flow-row">
+        {!realtimeData.length
+          ? preloadedPosts.map((post) => {
+              return (
+                <PostItem
+                  id={post.id}
+                  key={post.id}
+                  img={session?.user.image}
+                  name={session?.user.name}
+                  text={post.text}
+                  postImg={post.img}
+                  timestamp={post.timestamp}
+                  email={session?.user.email}
+                />
+              );
+            })
+          : realtimeData.map((post) => {
+              return (
+                <PostItem
+                  id={post.id}
+                  key={post.id}
+                  img={session?.user.image}
+                  name={session?.user.name}
+                  text={post.data().text}
+                  postImg={post.data().img}
+                  timestamp={post.data().timestamp}
+                  email={session?.user.email}
+                />
+              );
+            })}
+      </div>
+  );
+}

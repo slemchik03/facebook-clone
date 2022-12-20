@@ -1,16 +1,7 @@
-<<<<<<< Updated upstream
-import { addDoc, collection, doc, FirestoreError, QueryDocumentSnapshot, serverTimestamp, Timestamp } from "firebase/firestore"
-import { useSession } from "next-auth/react"
-import { useMemo, useState } from "react"
-import { firestore } from "../../firebase"
-import { useInfinityData } from "./useInfinityData"
-=======
 import {
   addDoc,
   collection,
-  doc,
   FirestoreError,
-  query,
   QueryDocumentSnapshot,
   serverTimestamp,
   Timestamp,
@@ -19,7 +10,6 @@ import { useSession } from "next-auth/react";
 import { useMemo, useState } from "react";
 import { firestore } from "../../firebase";
 import { useInfinityData } from "./useInfinityData";
->>>>>>> Stashed changes
 
 export interface Message {
   text: string;
@@ -51,35 +41,11 @@ export const usePostMessages: IHook = (id) => {
     [id]
   );
 
-<<<<<<< Updated upstream
-    const messagePath = useMemo(() => [user.id, "posts", id, "messages"], [id])
-    const colletionRef = useMemo(() => collection(firestore, "users", ...messagePath), [id])
-
-    const { realtimeData, loading, error } = useInfinityData<Message>({
-        collectionRef: colletionRef,
-        dataLimit: 5,
-        orderParams: ["timestamp", "desc"]
-    })
-
-    const sendMessage = async (text: string) => {
-        if (text.trim()) {
-            setMessageUploadLoading(true)
-            const messageRef = await addDoc(colletionRef, {
-                text,
-                author: user.name,
-                authorImg: user.image,
-                likes: 0,
-                timestamp: serverTimestamp()
-            })
-            setMessageUploadLoading(false)
-        }
-=======
   const { realtimeData, loading, error } = useInfinityData<Message>({
     collectionRef: colletionRef,
     preloadDataCount: 30,
     orderParams: ["timestamp", "desc"],
   });
->>>>>>> Stashed changes
 
   const sendMessage = async (text: string) => {
     if (text.trim()) {

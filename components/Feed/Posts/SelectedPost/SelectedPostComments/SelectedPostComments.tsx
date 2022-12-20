@@ -2,13 +2,8 @@ import { useSession } from "next-auth/react"
 import { FC } from "react"
 import { useForm } from "react-hook-form"
 import { usePostMessages } from "../../../../../utils/hooks/usePostMessages"
-<<<<<<< Updated upstream:components/Feed/Posts/PostModal/PostComments/PostComentsList.tsx
-import { Spinner } from "../../../../Spinner"
-import PostCommentItem from "./PostCommentItem"
-=======
 import { Spinner } from "../../../../General/Spinner"
 import SelectedPostCommentItem from "./SelectedPostCommentItem"
->>>>>>> Stashed changes:components/Feed/Posts/SelectedPost/SelectedPostComments/SelectedPostComentsList.tsx
 
 interface Props {
     postId: string
@@ -16,7 +11,7 @@ interface Props {
 interface IForm {
     text: string
 }
-const PostCommentsList: FC<Props> = ({ postId }) => {
+const SelectedPostComments: FC<Props> = ({ postId }) => {
     const { register, handleSubmit, reset } = useForm<IForm>()
     const { data, loading, sendMessage } = usePostMessages(postId)
     const { data: session } = useSession()
@@ -49,7 +44,7 @@ const PostCommentsList: FC<Props> = ({ postId }) => {
                                 <Spinner />
                             </div>
                         ) : data.map((comment) => {
-                            return <PostCommentItem key={comment.id} {...comment.data()} />
+                            return <SelectedPostCommentItem key={comment.id} {...comment.data()} />
                         })
                     }
                 </div>
@@ -59,4 +54,4 @@ const PostCommentsList: FC<Props> = ({ postId }) => {
     )
 }
 
-export default PostCommentsList
+export default SelectedPostComments

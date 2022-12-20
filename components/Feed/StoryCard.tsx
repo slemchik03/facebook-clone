@@ -15,26 +15,14 @@ export const StoryCard: FC<DataType> = ({ profile, src, name }) => {
         src={profile}
         className="absolute opacity-0 
             lg:opacity-100 rounded-full z-10 object-cover
-<<<<<<< Updated upstream
-            " />
-
-            <Image src={src} layout={"fill"} className="rounded-full 
-            lg:rounded-3xl filter brightness-75 object-cover" />
-            <p className="hidden lg:flex absolute bottom-3 font-semibold text-white">
-                {name.length > 12 ? name.slice(0, 12) + "..." : name}
-            </p>
-        </div>
-    )
-}
-=======
             "
         alt="Author"
       />
 
       <Image
         priority
+        layout="fill"
         src={src}
-        layout={"fill"}
         className="rounded-full 
             lg:rounded-3xl filter brightness-75 object-cover"
         alt="Story image"
@@ -45,4 +33,3 @@ export const StoryCard: FC<DataType> = ({ profile, src, name }) => {
     </div>
   );
 };
->>>>>>> Stashed changes

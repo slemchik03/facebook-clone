@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { StoryCard } from "./StoryCard";
 
 export interface DataType {
@@ -30,18 +29,7 @@ const data: DataType[] = [
   },
 ];
 
-<<<<<<< Updated upstream
-export const Stories: FC = () => {
-    return (
-        <div className="flex justify-center space-x-3">
-            {data.map(story => {
-                return <StoryCard key={story.src} profile={story.profile} src={story.src} name={story.name} />
-            })}
-        </div>
-    )
-}
-=======
-const Stories: FC = () => {
+export default async function Stories() {
   return (
     <div className="flex justify-center space-x-3">
       {data.map((story) => {
@@ -56,7 +44,4 @@ const Stories: FC = () => {
       })}
     </div>
   );
-};
-
-export default Stories;
->>>>>>> Stashed changes
+}

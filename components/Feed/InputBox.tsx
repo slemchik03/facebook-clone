@@ -38,19 +38,11 @@ export const InputBox: FC = () => {
     setPostImg(null);
   };
 
-<<<<<<< Updated upstream
-    const submitForm = async (data: IForm) => {
-        reset()
-        setPostImg(null)
-        await sendPost(data.text)
-    }
-=======
   const submitForm = async (data: IForm) => {
     reset();
     const res = await sendPost(data.text);
     setPostImg(null);
   };
->>>>>>> Stashed changes
 
   return (
     <div className="relative bg-white rounded-2xl p-4 shadow-md mt-5">

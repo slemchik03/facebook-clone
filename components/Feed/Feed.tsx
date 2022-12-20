@@ -1,23 +1,3 @@
-<<<<<<< Updated upstream
-import { FC } from "react";
-import { InputBox } from "./InputBox";
-import { Posts } from "./Posts/Posts";
-import { Stories } from "./Stories";
-
-export const Feed: FC = () => {
-    return (
-        <div className="flex justify-center pt-7 md:mr-[110px]">
-            <div>
-                {/* Stories */}
-                <Stories />
-                {/* Input box */}
-                <InputBox />
-                {/* Posts */}
-                <Posts />
-            </div>
-        </div>
-    )
-=======
 import { Suspense } from "react";
 import { InputBox } from "./InputBox";
 import Posts from "./Posts/Posts";
@@ -28,6 +8,7 @@ export default async function Feed() {
     <div className="flex justify-center pt-7 md:mr-[110px]">
       <div>
         {/* Stories */}
+        {/* @ts-ignore Server Component */}
         <Stories />
         {/* Input box */}
         <InputBox />
@@ -39,5 +20,4 @@ export default async function Feed() {
       </div>
     </div>
   );
->>>>>>> Stashed changes
 }

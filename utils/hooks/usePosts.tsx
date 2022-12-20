@@ -40,21 +40,11 @@ export const usePosts = () => {
         ); // upload in storage
         const imgUrl = await getDownloadURL(postImgStorageRef); // convert img to url
 
-<<<<<<< Updated upstream
-                await updateDoc(postRef, { img: imgUrl }) // set img url to post
-            } catch (error) {
-                console.log(error);
-                setLoadingStatus(false)
-            }
-        }
-        setLoadingStatus(false)
-=======
         await updateDoc(postRef, { img: imgUrl }); // set img url to post
       } catch (error) {
         console.log(error);
         setLoadingStatus(false);
       }
->>>>>>> Stashed changes
     }
     setLoadingStatus(false);
     return true;

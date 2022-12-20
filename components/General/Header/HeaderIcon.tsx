@@ -10,7 +10,7 @@ interface Props {
 
 export const HeaderIcon: FC<Props> = ({ Icon, href, setMobileMenuIsOpen }) => {
     const currentPath = usePathname()
-
+    
     return (
         <Link href={href}>
             <div onClick={() => setMobileMenuIsOpen && setMobileMenuIsOpen(false)}

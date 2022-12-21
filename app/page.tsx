@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { Login } from "../components/General/Login";
 import Sidebar from "../components/Home/SideBar/Sidebar";
 
@@ -7,6 +6,7 @@ import { headers } from "next/headers";
 import getSession from "../utils/getSession";
 import { preloadPosts } from "../components/Feed/Posts/Posts";
 import Feed from "../components/Feed/Feed";
+
 
 export default async function Page() {
   const session = await getSession(headers().get("cookie") ?? "");
@@ -20,10 +20,6 @@ export default async function Page() {
 
   return (
     <>
-      <Head>
-        <title>Home</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <div className="flex justify-center sm:justify-between">
         {/* @ts-ignore Server Component */}
         <Sidebar />

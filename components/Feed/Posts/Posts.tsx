@@ -36,5 +36,3 @@ export default async function Posts() {
     </>
   );
 }
-
-export default Posts

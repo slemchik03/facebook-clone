@@ -5,9 +5,10 @@ import Image from "next/image";
 import { FC } from "react";
 import { useDocumentOnce } from "react-firebase-hooks/firestore";
 import { firestore } from "../../../../firebase";
-import { Spinner } from "../../../Spinner";
-import { IPost } from "../PostSection/PostsList";
-import SelectedPostCommentsList from "./SelectedPostComments/SelectedPostComentsList";
+import { Spinner } from "../../../General/Spinner";
+import { IPost } from "../Post";
+import SelectedPostComments from "./SelectedPostComments/SelectedPostComments";
+
 
 interface Props {
     id: string,
@@ -62,7 +63,7 @@ const SelectedPostContent: FC<Props> = ({ id, userId, authorImg, name, closeHand
                 {
                     post.img && (
                         <div className="relative h-56 md:h-96 mt-5">
-                            <Image src={post.img} objectFit={"cover"} layout="fill" blurDataURL={post.img} />
+                            <Image src={post.img} fill blurDataURL={post.img} alt="post img"/>
                         </div>
                     )
                 }
@@ -79,7 +80,7 @@ const SelectedPostContent: FC<Props> = ({ id, userId, authorImg, name, closeHand
                     </div>
                 </div>
                 {/* Comments */}
-                <SelectedPostCommentsList postId={id} />
+                <SelectedPostComments postId={id} />
             </div>
         </div>
     )

@@ -18,8 +18,6 @@ export default function PostsList({ preloadedPosts }: Props) {
     preloadDataCount: 5,
     orderParams: ["timestamp", "desc"]
 })
-  console.log(realtimeData);
-  
 
   return (
       <div className="grid grid-flow-row">

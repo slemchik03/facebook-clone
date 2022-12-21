@@ -56,13 +56,15 @@ export const InputBox: FC = () => {
         <Spinner />
       </div>
       <div className="flex items-center space-x-4">
-        <Image
-          className="rounded-full"
-          width={40}
-          height={40}
-          src={session?.user.image}
-          alt="loaded image"
-        />
+        {session?.user.image && (
+          <Image
+            className="rounded-full"
+            width={40}
+            height={40}
+            src={session?.user.image}
+            alt="loaded image"
+          />
+        )}
         <form onSubmit={handleSubmit(submitForm)} className="flex flex-1">
           <input
             {...register("text", { required: true })}

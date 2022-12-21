@@ -11,7 +11,7 @@ const SelectedPostCommentItem: FC<Props> = ({ author, authorImg, text, timestamp
     return (
         <div className="grid grid-cols-[50px_minmax(0px,_1fr)_minmax(0px,_1fr)] gap-4">
             <div className="max-w-[50px] max-h-[50px]">
-                <Image src={authorImg} width={50} height={50} objectFit={"cover"} className="rounded-full" alt="user photo" />
+                <Image src={authorImg} width={50} height={50} className="rounded-full object-cover" alt="user photo" />
             </div>
             <div className="grid-flow-row col-span-2 gap-2">
                 <div className="grid grid-flow-col justify-start gap-2 text-sm md:text-base">

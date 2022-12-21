@@ -59,7 +59,10 @@ const Post: FC<Props> = ({
           <div className="relative h-56 md:h-96 mt-5">
             <Image
               src={postImg}
-              layout={"fill"}
+              fill
+              sizes="(max-width: 768px) 100vw,
+              (max-width: 1200px) 50vw,
+              33vw"
               className="object-cover absolute top-0 w-full h-full"
               blurDataURL={postImg}
               alt="post image"

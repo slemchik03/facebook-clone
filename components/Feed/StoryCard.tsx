@@ -21,7 +21,10 @@ export const StoryCard: FC<DataType> = ({ profile, src, name }) => {
 
       <Image
         priority
-        layout="fill"
+        fill
+        sizes="(max-width: 768px) 100vw,
+        (max-width: 1200px) 50vw,
+        33vw"
         src={src}
         className="rounded-full 
             lg:rounded-3xl filter brightness-75 object-cover"

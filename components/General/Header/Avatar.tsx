@@ -12,7 +12,6 @@ const Avatar: FC<{ src: string }> = ({ src }) => {
       src={src}
       width={40}
       height={40}
-      layout="fixed"
       alt="avatar"
     />
   );
